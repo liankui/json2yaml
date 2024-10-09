@@ -1,0 +1,55 @@
+{
+  "name": "Bob",
+  "age": 35,
+  "isEmployed": true,
+  "salary": null,
+  "address": {
+    "street": "123 Main St",
+    "city": "San Francisco",
+    "zipcode": 94105,
+    "coordinates": {
+      "latitude": 37.7749,
+      "longitude": -122.4194
+    }
+  },
+  "skills": [
+    "Go",
+    "Python",
+    {
+      "language": "JavaScript",
+      "experience": 5
+    }
+  ],
+  "projects": [
+    {
+      "name": "Project X",
+      "status": "completed",
+      "budget": 250000.75,
+      "team": [
+        {
+          "name": "Alice",
+          "role": "Developer"
+        },
+        {
+          "name": "Eve",
+          "role": "Tester"
+        }
+      ]
+    },
+    {
+      "name": "Project Y",
+      "status": "in progress",
+      "budget": 50000,
+      "team": []
+    }
+  ],
+  "contactMethods": {
+    "email": "bob@example.com",
+    "phoneNumbers": ["+1-555-555-5555", "+1-555-555-5556"]
+  },
+  "misc": {
+    "notes": null,
+    "active": true,
+    "lastLogin": "2024-10-08T12:00:00Z"
+  }
+}
