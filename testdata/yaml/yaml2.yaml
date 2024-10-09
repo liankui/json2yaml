@@ -1,0 +1,10 @@
+address:
+  city: New York
+  zipcode: "10001"
+age: 28
+name: Alice
+projects:
+  - name: Project A
+    status: ongoing
+  - name: Project B
+    status: completed

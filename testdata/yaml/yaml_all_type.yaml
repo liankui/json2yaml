@@ -1,0 +1,38 @@
+address:
+  city: San Francisco
+  coordinates:
+    latitude: 37.7749
+    longitude: -122.4194
+  street: 123 Main St
+  zipcode: 94105
+age: 35
+contactMethods:
+  email: bob@example.com
+  phoneNumbers:
+    - +1-555-555-5555
+    - +1-555-555-5556
+isEmployed: true
+misc:
+  active: true
+  lastLogin: "2024-10-08T12:00:00Z"
+  notes: null
+name: Bob
+projects:
+  - budget: 250000.75
+    name: Project X
+    status: completed
+    team:
+      - name: Alice
+        role: Developer
+      - name: Eve
+        role: Tester
+  - budget: 50000
+    name: Project Y
+    status: in progress
+    team: []
+salary: null
+skills:
+  - Go
+  - Python
+  - experience: 5
+    language: JavaScript

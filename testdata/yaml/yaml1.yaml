@@ -1,0 +1,6 @@
+age: 30
+name: John
+skills:
+  - Go
+  - Docker
+  - Kubernetes
