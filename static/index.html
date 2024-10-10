@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON ⇔ YAML 转换工具</title>
+    <style>
+        /* 页面整体布局 */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            display: flex;
+            width: 95%;
+            height: 95%;
+            max-width: 1600px;
+        }
+
+        .textarea-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            margin: 10px;
+        }
+
+        textarea {
+            flex: 1;
+            padding: 10px;
+            margin-top: 5px;
+            resize: none;
+            font-family: monospace;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            overflow: auto;
+            white-space: pre;
+            wrap: off; /* 禁用自动换行 */
+        }
+
+        .textarea-container label {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        button {
+            width: 80px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            margin: 10px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- 左侧 JSON 输入框 -->
+    <div class="textarea-container">
+        <label for="jsonInput"> JSON </label>
+        <textarea id="jsonInput" placeholder="输入 JSON 数据"></textarea>
+    </div>
+
+    <!-- 中间按钮区域 -->
+    <div class="button-container">
+        <button id="jsonToYamlBtn">⇨</button>
+        <button id="yamlToJsonBtn">⇦</button>
+    </div>
+
+    <!-- 右侧 YAML 输出框 -->
+    <div class="textarea-container">
+        <label for="yamlOutput"> YAML </label>
+        <textarea id="yamlOutput" placeholder="输出 YAML 数据"></textarea>
+    </div>
+</div>
+
+<script>
+    // 左侧 JSON 输入框
+    const jsonInput = document.getElementById('jsonInput');
+    const yamlOutput = document.getElementById('yamlOutput');
+
+    // 同步滚动 (仅垂直同步)
+    function syncScroll(element1, element2) {
+        element1.addEventListener('scroll', () => {
+            element2.scrollTop = element1.scrollTop;
+        });
+        element2.addEventListener('scroll', () => {
+            element1.scrollTop = element2.scrollTop;
+        });
+    }
+
+    syncScroll(jsonInput, yamlOutput);
+
+    // JSON 转 YAML 功能
+    document.getElementById('jsonToYamlBtn').addEventListener('click', function () {
+        const jsonData = jsonInput.value.trim();
+        if (!jsonData) {
+            alert('请输入有效的 JSON 数据');
+            return;
+        }
+
+        fetch('/json2yaml', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: jsonData
+        })
+            .then(response => response.text())
+            .then(data => {
+                yamlOutput.value = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('转换失败，请检查 JSON 数据格式');
+            });
+    });
+
+    // YAML 转 JSON 功能
+    document.getElementById('yamlToJsonBtn').addEventListener('click', function (message) {
+        const yamlData = yamlOutput.value.trim();
+        if (!yamlData) {
+            alert('请输入有效的 YAML 数据');
+            return;
+        }
+
+        fetch('/yaml2json', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-yaml'
+            },
+            body: yamlData
+        })
+            .then(response => response.text()) // Expect JSON response
+            .then(data => {
+                jsonInput.value = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(`转换失败，请检查 YAML 数据格式`);
+            });
+    });
+</script>
+</body>
+</html>
