@@ -155,9 +155,9 @@
             },
             body: yamlData
         })
-            .then(response => response.text()) // Expect JSON response
+            .then(response => response.text())
             .then(data => {
-                jsonInput.value = JSON.stringify(data, null, 2);
+                jsonInput.value = data;
             })
             .catch(error => {
                 console.error('Error:', error);
